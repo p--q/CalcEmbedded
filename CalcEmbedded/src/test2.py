@@ -1,6 +1,6 @@
 #!/opt/libreoffice5.2/program/python
 # -*- coding: utf-8 -*-
-def calc_overview():
+def main():
     doc = XSCRIPTCONTEXT.getDocument()
     if doc.supportsService("com.sun.star.sheet.SpreadsheetDocument"):
         sheets = doc.getSheets()
@@ -14,10 +14,10 @@ def calc_overview():
             for j in range(rangeAddress.EndColumn - rangeAddress.StartColumn):
                 subrange.getCellByPosition(j, i).setValue((i + 1) * (j + 2))
 if __name__ == "__main__":
+    import sys
     import unopy
     XSCRIPTCONTEXT = unopy.connect()
     if not XSCRIPTCONTEXT:
         print("Failed to connect.")
-        import sys
         sys.exit(0)
-    calc_overview()
+    sys.exit(main())
